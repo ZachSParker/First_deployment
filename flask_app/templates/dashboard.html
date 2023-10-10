@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+    <h1>Welcome {{user.first_name}}</h1>
+    <ul class="nav justify-content-center">
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/user/account/{{session['user_id']}}">Account</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/magazine/new">+Add Magazine</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-btn link-light btn btn-primary" href="/logout">Logout</a>
+        </li>
+    </ul>
+    
+    <div class ="container col-4 align-">
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Magazine Title</th>
+                    <th>Posted By</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for mag in mags %}
+                <tr>
+                    <td>{{mag.title}}</td>
+                    <td>{{mag.creator.first_name}} {{mag.creator.last_name}}</td>
+                    <td><a href="/show/{{mag.id}}">View</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

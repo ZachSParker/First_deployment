@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+    <ul class="nav justify-content-center">
+        <li class="nav-item">
+            <a class="nav-link" href="/magazine/new">+New Magazine</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/dashboard">Dashboard</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-btn link-light btn btn-primary" href="/logout">Logout</a>
+        </li>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p>{{message}}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    <div class="container row">
+        <div class ="col-md-5 mx-auto mt-5">
+            <h2>Update User </h2>
+            <form action="/user/{{session['user_id']}}/edit" method ="POST">
+                <label for="first_name">First Name</label>
+                <input type="text"class ="form-control mt-3" name = "first_name">
+                <label for="last_name">Last Name</label>
+                <input type="text"class ="form-control mt-3" name = "last_name">
+                <label for="email">Email</label>
+                <input type="text"class ="form-control mt-3" name = "email">
+                <input type="hidden" name="" value = "{{session['user_id']}}">
+                <input type="submit"class = "btn btn-primary mt-4 col-4">
+                <input type="hidden" name="password" value="{{user.password}}">
+            </form>
+        </div>
+        <div class="col-md-5 mt-5">
+            <h2>{{user.first_name}}{{user.last_name}}'s Magazines</h2>
+            {% for mag in mags %}
+                <p>{{mag.title}}</p> <a href="/delete/{{mag.id}}">Delete</a>
+            {% endfor %}
+        </div>
+
+    </div>
+    
+</body>
+</html>
